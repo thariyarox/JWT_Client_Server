@@ -1,8 +1,13 @@
 package org.wso2.carbon.client.app;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.HttpClientBuilder;
+
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URL;
 
 public class ServiceConsumer {
 
@@ -10,34 +15,40 @@ public class ServiceConsumer {
 
         String url = serverHostPort + ClientAppConstants.SERVICE_URL + "/create/" + resourceName;
 
-        return callService(url);
+        return callServiceWithHTTPClient(url);
     }
 
     public static String readResource(String serverHostPort, String tenantId, String tenantDomain, String resourceName) {
         String url = serverHostPort + ClientAppConstants.SERVICE_URL + "/read/" + resourceName;
 
-        return callService(url);
+        return callServiceWithHTTPClient(url);
     }
 
-    private static String callService(String Url){
+    private static String callServiceWithHTTPClient(String Url) {
 
         String output = "";
+
         try {
-            URL url = new URL(Url);
+            HttpClientBuilder builder = HttpClientBuilder.create();
+            HttpClient client = builder.build();
+            HttpGet request = new HttpGet(Url);
+            HttpResponse response = client.execute(request);
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
+            //response.getStatusLine().getStatusCode()
 
-            String tmp = null;
+            BufferedReader rd = new BufferedReader(
+                    new InputStreamReader(response.getEntity().getContent()));
 
-            do{
-                tmp = br.readLine();
+            StringBuffer result = new StringBuffer();
+            String line = "";
 
-                if(tmp != null)
-                    output += tmp;
+            while ((line = rd.readLine()) != null) {
+                result.append(line);
+            }
 
-            } while(tmp != null);
+            output = result.toString();
 
-        } catch (Exception e) {
+        } catch (IOException e) {
 
             e.printStackTrace();
         }
