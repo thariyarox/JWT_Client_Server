@@ -6,15 +6,15 @@ import java.net.URL;
 
 public class ServiceConsumer {
 
-    public static String createResource(String tenantId, String tenantDomain, String resourceName) {
+    public static String createResource(String serverHostPort, String tenantId, String tenantDomain, String resourceName) {
 
-        String url = ClientAppConstants.SERVICE_URL + "/create/" + resourceName;
+        String url = serverHostPort + ClientAppConstants.SERVICE_URL + "/create/" + resourceName;
 
         return callService(url);
     }
 
-    public static String readResource(String tenantId, String tenantDomain, String resourceName) {
-        String url = ClientAppConstants.SERVICE_URL + "/read/" + resourceName;
+    public static String readResource(String serverHostPort, String tenantId, String tenantDomain, String resourceName) {
+        String url = serverHostPort + ClientAppConstants.SERVICE_URL + "/read/" + resourceName;
 
         return callService(url);
     }

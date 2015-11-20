@@ -10,6 +10,13 @@
 <form action="output.jsp" method="post">
 
     <table>
+
+
+
+        <tr>
+            <td>Server HOST:PORT</td>
+            <td><input type="text" name="<%=ClientAppConstants.SERVER_HOST_PORT%>" value="http://172.17.0.1:9763"/></td>
+        </tr>
         <tr>
             <td>Tenant ID</td>
             <td><input type="text" name="<%=ClientAppConstants.TENANT_ID%>"/></td>

@@ -8,7 +8,7 @@
 <body>
 
 <%
-
+    String serverHostPort = request.getParameter(ClientAppConstants.SERVER_HOST_PORT);
     String tenantId = request.getParameter(ClientAppConstants.TENANT_ID);
     String  tenantDomain = request.getParameter(ClientAppConstants.TENANT_DOMAIN);
     String  resourceName = request.getParameter(ClientAppConstants.RESOURCE_NAME);
@@ -16,10 +16,10 @@
     String output;
 
     if("create".equals(operation)){
-        output = ServiceConsumer.createResource(tenantId, tenantDomain, resourceName);
+        output = ServiceConsumer.createResource(serverHostPort, tenantId, tenantDomain, resourceName);
 
     } else {
-        output = ServiceConsumer.readResource(tenantId, tenantDomain, resourceName);
+        output = ServiceConsumer.readResource(serverHostPort, tenantId, tenantDomain, resourceName);
     }
 %>
 
