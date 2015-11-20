@@ -1,13 +1,18 @@
 package org.wso2.carbon.client.app;
 
-/**
- * Created by tharindu on 11/19/15.
- */
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class JWTokenGenerator {
 
-    public static String generateToken(String tenantId, String tenantDomain){
-        String JWT = "{\"tenant_id\":\"" + tenantId + "\",\"tenant_domain\":\"" + tenantDomain + "\"}";
+    private static final Log log = LogFactory.getLog(JWTokenGenerator.class);
 
-        return JWT;
+    public static String generateToken(String tenantId, String tenantDomain, String resourceName) {
+
+        String jwt = "{\"tenant_id\":\"" + tenantId + "\",\"tenant_domain\":\"" + tenantDomain + "\", \"resource_name\":\"" + resourceName + "\"}";
+
+        log.info("JSON WEB TOKEN generated : " + jwt);
+
+        return jwt;
     }
 }
