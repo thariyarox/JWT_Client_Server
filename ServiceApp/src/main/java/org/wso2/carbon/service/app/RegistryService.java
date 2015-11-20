@@ -2,25 +2,36 @@ package org.wso2.carbon.service.app;
 
 import org.springframework.stereotype.Service;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
 
 @Service
 @Path("/service")
 public class RegistryService {
 
 
-    @GET
-    @Path("/create/{resource_name}")
-    public String createResource(@PathParam("resource_name") String resource_name) {
+    @POST
+    @Path("/create")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String createResource(@Context HttpServletRequest httpServletRequest) {
+
+    String resource_name = "";
+
+        String JWToken =  httpServletRequest.getHeader("JWT");
+
         return "You have created " + resource_name;
     }
 
 
     @GET
-    @Path("/read/{resource_name}")
-    public String readResource(@PathParam("resource_name") String resource_name) {
+    @Path("/read")
+    public String readResource(@Context HttpServletRequest httpServletRequest) {
+        String resource_name = "";
+
+        String JWToken =  httpServletRequest.getHeader("JWT");
+
         return "You are reading " + resource_name;
     }
 }
