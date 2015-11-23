@@ -1,6 +1,5 @@
 package org.wso2.carbon.jwt.helper.internal;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.eclipse.equinox.http.helper.ContextPathServletAdaptor;
@@ -27,7 +26,7 @@ public class JWTHelperDSComponent {
 
     private static Log log = LogFactory.getLog(JWTHelperDSComponent.class);
 
-    public static final String JWT_RECEIVER_SERVLET_URL = "/jwtreceiver";
+    public static final String JWT_RECEIVER_SERVLET_URL = "/jwtgenerator";
 
     protected void activate(ComponentContext ctxt) {
 

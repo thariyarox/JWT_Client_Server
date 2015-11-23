@@ -11,15 +11,15 @@ public class JWTHelperDataHolder {
 
     private HttpService httpService;
 
-    private JWTHelperDataHolder(){
+    private JWTHelperDataHolder() {
 
     }
 
-    public static JWTHelperDataHolder getInstance(){
+    public static JWTHelperDataHolder getInstance() {
 
-        if(jwtHelperDataHolder == null){
-            synchronized (JWTHelperDataHolder.class){
-                if(jwtHelperDataHolder == null) {
+        if (jwtHelperDataHolder == null) {
+            synchronized (JWTHelperDataHolder.class) {
+                if (jwtHelperDataHolder == null) {
                     jwtHelperDataHolder = new JWTHelperDataHolder();
                 }
             }
