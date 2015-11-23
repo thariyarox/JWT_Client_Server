@@ -18,12 +18,20 @@ public class JWTReceiverServlet extends HttpServlet{
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         log.info("JWTReceiver Servlet doGet Hit !");
+
+        resp.setContentType("text/plain");
+        resp.getWriter().write("Hello from the cloud!");
+
         super.doGet(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("JWTReceiver Servlet doPost Hit !");
+
+        resp.setContentType("text/plain");
+        resp.getWriter().write("Hello from the cloud!");
+
         super.doPost(req, resp);
     }
 }

@@ -4,7 +4,10 @@ package org.wso2.carbon.jwt.helper.internal;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.eclipse.equinox.http.helper.ContextPathServletAdaptor;
+import org.osgi.framework.BundleContext;
 import org.osgi.service.component.ComponentContext;
+import org.osgi.util.tracker.ServiceTracker;
+import org.wso2.carbon.jwt.helper.HttpServiceTracker;
 import org.wso2.carbon.jwt.helper.servlet.JWTReceiverServlet;
 import org.wso2.carbon.user.core.service.RealmService;
 
@@ -30,27 +33,23 @@ public class JWTHelperDSComponent {
 
     public static final String JWT_RECEIVER_SERVLET_URL = "/jwtreceiver";
 
+    private HttpServiceTracker serviceTracker;
+
     protected void activate(ComponentContext ctxt) {
 
-        // Register Common servlet
-        Servlet commonServlet = new ContextPathServletAdaptor(
-                new JWTReceiverServlet(),
-                JWT_RECEIVER_SERVLET_URL);
+        HttpServiceTracker serviceTracker = new HttpServiceTracker((BundleContext) ctxt);
 
-        try {
-            httpService.registerServlet(JWT_RECEIVER_SERVLET_URL, commonServlet,
-                    null, null);
-        } catch (Exception e) {
-            String errMsg = "Error when registering JWTReceiver Servlet via the HttpService.";
-            log.error(errMsg, e);
-            throw new RuntimeException(errMsg, e);
-        }
-
-
+        serviceTracker.open();
+        
+        
         log.info("JWTHelper bundle activated successfully..");
     }
 
     protected void deactivate(ComponentContext ctxt) {
+
+        serviceTracker.close();
+        serviceTracker = null;
+
         if (log.isDebugEnabled()) {
             log.debug("JWTHelper bundle is deactivated ");
         }
